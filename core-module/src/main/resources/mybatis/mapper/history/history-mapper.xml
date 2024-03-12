@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.module.history.repository.HistoryDao">
+
+    <select id="selectHistoryInfo" resultType="historyDto" parameterType="historyDto">
+        SELECT
+            HISTORY_SEQ
+             , REGIST_DATETIME
+             , HISTORY_CONTENT
+        from
+            tb_history
+        where
+            HISTORY_SEQ = #{historySeq, jdbcType=INTEGER}
+    </select>
+
+</mapper>

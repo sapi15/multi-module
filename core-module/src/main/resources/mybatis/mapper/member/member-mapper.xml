@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.module.member.repository.UserDao">
+
+    <select id="selectUserData" resultType="userDto" parameterType="userDto">
+        SELECT
+            MEM_SEQ
+             , MEM_ID
+             , MEM_AGE
+        FROM
+            tb_member
+        where
+            MEM_SEQ = #{memSeq,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>
