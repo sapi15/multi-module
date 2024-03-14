@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Controller
 public class HomeController {
-
     public HomeController(){
         log.info("HomeController call !!!");
     }

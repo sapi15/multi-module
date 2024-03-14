@@ -7,12 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
-//@SpringBootApplication(scanBasePackages = "com.multi.module")
 @Slf4j
-//@EnableTransactionManagement
+@SpringBootApplication(scanBasePackages = "com.multi.module")
+@EnableTransactionManagement
 @ComponentScan(basePackages = {"com.multi.module"})
-//@MapperScan(basePackages = {"com.multi.module.member.repository"})
+@MapperScan(basePackages = {"com.multi.module"})
 public class ClientApplication {
 
     public static void main(String[] args){

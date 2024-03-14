@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.module.board.repository.BoardDao">
+
+    <select id="selectBoardList" parameterType="boardDto" resultType="boardDto">
+            SELECT
+                BOARD_NO
+                 , BOARD_P_NO
+                 , BOARD_TITLE
+                 , BOARD_CONTENTS
+                 , BOARD_GROUP_NO
+            FROM
+                TB_BOARD
+    </select>
+
+    <select id="selectBoardDetail" parameterType="boardDto" resultType="boardDto">
+        SELECT
+            BOARD_NO
+            , BOARD_P_NO
+            , BOARD_TITLE
+            , BOARD_CONTENTS
+            , BOARD_GROUP_NO
+        FROM
+            TB_BOARD
+        WHERE
+            1=1
+            <if test="@com.multi.module.common.utils.Validations@isNotEmpty(authCd)">
+                AND BOARD_NO = #{boardNo,jdbcType=INTEGER}
+            </if>
+    </select>
+
+    <insert id="insertBoard" parameterType="boardDto">
+        <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+            SELECT
+                (CASE COUNT(1) WHEN 0 THEN 0 ELSE MAX(BOARD_NO) END) + 1
+            FROM
+                TB_BOARD
+        </selectKey>
+
+        INSERT INTO TB_BOARD(BOARD_NO
+                            , BOARD_P_NO
+                            , BOARD_TITLE
+                            , BOARD_CONTENTS
+                            , BOARD_GROUP_NO
+        )VALUES(
+                #{boardNo,jdbcType=INTEGER}
+                , #{boardPNo,jdbcType=INTEGER}
+                , #{boardTitle,jdbcType=VARCHAR}
+                , #{boardContents,jdbcType=VARCHAR}
+                , #{boardGroupNo,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateBoard" parameterType="boardDto">
+        UPDATE TB_BOARD
+        SET
+            BOARD_P_NO = #{boardPNo,jdbcType=INTEGER}
+          , BOARD_TITLE = #{boardTitle,jdbcType=VARCHAR}
+          , BOARD_CONTENTS = #{boardContents,jdbcType=VARCHAR}
+          , BOARD_GROUP_NO = #{boardGroupNo,jdbcType=VARCHAR}
+        WHERE
+            BOARD_NO = #{boardNo,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteBoard" parameterType="boardDto">
+        DELETE FROM TB_BOARD
+        WHERE BOARD_NO = #{boardNo,jdbcType=INTEGER}
+    </delete>
+
+    <select id="boardCk" parameterType="boardDto" resultType="java.lang.Integer">
+        SELECT
+            count(*) AS CNT
+        FROM
+            TB_BOARD
+        WHERE
+            BOARD_NO = #{boardNo,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>

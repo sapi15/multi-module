@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.module.attachFile.repository.AttachFileDao">
+
+    <select id="selectAttachFileDetail" parameterType="attachFileDto" resultType="attachFileDto">
+        SELECT
+            FILE_NO
+            , BOARD_NO
+            , FILE_ORGN_NM
+            , FILE_SAVE_NM
+            , FILE_SIZE
+            , FILE_PATH
+            , FILE_TYPE
+        FROM
+            TB_FILE
+        where
+            1=1
+            <if test="@com.multi.module.common.utils.Validations@isNotEmpty(fileNo)">
+                AND FILE_NO = #{fileNo,jdbcType=INTEGER}
+            </if>
+            <if test="@com.multi.module.common.utils.Validations@isNotEmpty(boardNo)">
+                AND BOARD_NO = #{boardNo,jdbcType=INTEGER}
+            </if>
+    </select>
+
+    <insert id="insertAttachFile" parameterType="attachFileDto">
+
+        <selectKey keyProperty="fileNo" resultType="int" order="BEFORE">
+            SELECT
+            (CASE COUNT(1) WHEN 0 THEN 0 ELSE MAX(FILE_NO) END) + 1
+            FROM
+            TB_FILE
+        </selectKey>
+        INSERT INTO TB_FILE(FILE_NO
+                        , BOARD_NO
+                        , FILE_ORGN_NM
+                        , FILE_SAVE_NM
+                        , FILE_SIZE
+                        , FILE_PATH
+                        , FILE_TYPE
+        )VALUES( #{fileNo}
+                , #{boardNo,jdbcType=INTEGER}
+                , #{fileOrgnNm,jdbcType=VARCHAR}
+                , #{fileSaveNm,jdbcType=VARCHAR}
+                , #{fileSize,jdbcType=BIGINT}
+                , #{filePath,jdbcType=VARCHAR}
+                , #{fileType,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateAttachFile" parameterType="attachFileDto">
+        UPDATE TB_FILE
+        SET
+            FILE_ORGN_NM = #{fileOrgnNm,jdbcType=VARCHAR}
+          , FILE_SAVE_NM = #{fileSaveNm,jdbcType=VARCHAR}
+          , FILE_SIZE = #{fileSize,jdbcType=BIGINT}
+          , FILE_PATH = #{filePath,jdbcType=VARCHAR}
+        WHERE
+            FILE_NO = #{fileNo,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteAttachFile" parameterType="attachFileDto">
+        DELETE TB_FILE
+        WHERE
+            BOARD_NO = #{boardNo,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteAttachFile2" parameterType="attachFileDto">
+        DELETE TB_FILE
+        WHERE
+            FILE_NO = #{fileNo,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

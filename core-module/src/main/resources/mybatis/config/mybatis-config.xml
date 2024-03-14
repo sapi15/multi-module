@@ -9,10 +9,10 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.multi.module.member.entity.UserDto" alias="userDto" />
-        <typeAlias type="com.multi.module.history.entity.HistoryDto" alias="historyDto" />
-
-
+        <typeAlias type="com.multi.module.member.entity.UserDto"                    alias="userDto" />
+        <typeAlias type="com.multi.module.history.entity.HistoryDto"                alias="historyDto" />
+        <typeAlias type="com.multi.module.board.entity.BoardDto"                    alias="boardDto" />
+        <typeAlias type="com.multi.module.attachFile.entity.AttachFileDto"          alias="attachFileDto" />
 
     </typeAliases>
 </configuration>

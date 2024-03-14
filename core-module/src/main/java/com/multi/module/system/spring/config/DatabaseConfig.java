@@ -22,8 +22,10 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 @PropertySource("classpath:/application.properties")
-@MapperScan(basePackages = {"com.multi.module.member.repository",
-                            "com.multi.module.history.repository"}, sqlSessionFactoryRef = "sqlSessionFactory1")
+@MapperScan(basePackages = {"com.multi.module.member.repository"
+                            , "com.multi.module.history.repository"
+                            , "com.multi.module.board.repository"
+                            , "com.multi.module.attachFile.repository"}, sqlSessionFactoryRef = "sqlSessionFactory1")
 public class DatabaseConfig {
 
 //    private final ApplicationContext applicationContext;
