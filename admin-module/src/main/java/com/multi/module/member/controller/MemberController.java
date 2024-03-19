@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
@@ -36,6 +37,14 @@ public class MemberController {
         userDto.setMemSeq(1);
         log.info("admin getUserData !!!");
         return memberService.findUserData(userDto);
+    }
+
+    @GetMapping("/page.do")
+    public ModelAndView memberP(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("member/memberPage");
+
+        return mav;
     }
 
 }

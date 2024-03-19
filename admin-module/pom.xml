@@ -23,6 +23,12 @@
             <artifactId>core-module</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!-- sprint security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

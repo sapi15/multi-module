@@ -18,7 +18,7 @@ public class HomeController {
     public ModelAndView Home(){
         ModelAndView mav = new ModelAndView();
         mav.addObject("data","Hello!!!");
-        mav.setViewName("/index");
+        mav.setViewName("index");
 
         return mav;
     }
