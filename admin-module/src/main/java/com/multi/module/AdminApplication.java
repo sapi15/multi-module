@@ -1,17 +1,11 @@
 package com.multi.module;
 
-import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@Slf4j
-//@ComponentScan
+@Log4j2
 //@EnableAutoConfiguration
 @SpringBootApplication(scanBasePackages = "com.multi.module")
 @EnableTransactionManagement

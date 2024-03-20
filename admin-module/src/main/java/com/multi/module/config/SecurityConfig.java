@@ -22,28 +22,37 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
 
         //csrf disable
-        httpSecurity.csrf((auth) -> auth.disable());            // JWT 방식에서는 필요 없는듯.
+        httpSecurity.csrf((auth) -> auth.disable());
 
         //From 로그인 방식 disable
-//        httpSecurity.formLogin((auth) -> auth.disable());       // JWT 방식에서는 필요 없는듯.
+//        httpSecurity.formLogin((auth) -> auth.disable());
 
         //http basic 인증 방식 disable
-//        httpSecurity.httpBasic((auth) -> auth.disable());       // JWT 방식에서는 필요 없는듯.
+//        httpSecurity.httpBasic((auth) -> auth.disable());
+
+//        httpSecurity.cors((auth) -> auth.disable());
+
+//        httpSecurity.headers((headerConfig) -> headerConfig
+//                                .frameOptions((frameOptionsConfig) -> frameOptionsConfig.disable()));
 
         httpSecurity
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/login.do", "/loginProc").permitAll()
-                        .requestMatchers("/user/**").hasAnyRole("USER")
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                        .requestMatchers("/manager/**").hasAnyRole("MANAGER")
+//                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/admin/login/**").permitAll()
 //                                            .requestMatchers("/", "/login.do", "/loginProc").permitAll()
-//                                            .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated());
+//                                            .requestMatchers("/user/**").hasAnyRole("USER")
+//                                            .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+//                                            .requestMatchers("/manager/**").hasAnyRole("MANAGER")
+                                            .anyRequest().authenticated());
 
-//        httpSecurity
-//                .formLogin((auth) -> auth.loginPage("/login.do")
-//                        .loginProcessingUrl("/loginProc").permitAll()
-//                );
+        httpSecurity
+                .formLogin((auth) -> auth
+                                    .loginPage("/admin/login/page.do")
+                                    .usernameParameter("username")
+                                    .passwordParameter("password")
+                                    .defaultSuccessUrl("/", true)
+                                    .loginProcessingUrl("/admin/loginProc.do").permitAll()
+                );
 
 
 

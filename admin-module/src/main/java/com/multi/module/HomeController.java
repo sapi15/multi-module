@@ -1,6 +1,8 @@
 package com.multi.module;
 
+import com.multi.module.system.spring.utils.MessageUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,16 +11,27 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
+
+//    @Autowired
+//    private MessageSourceAccessor messageSourceAccessor;
+
+    @Autowired
+    MessageUtils messageUtils;
+
+
     public HomeController(){
         log.info("HomeController call !!!");
     }
 
 
     @GetMapping("/")
-    public ModelAndView Home(){
+    public ModelAndView home(){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("data","Hello!!!");
+        mav.addObject("data", "Hello!!!");
         mav.setViewName("index");
+
+        System.out.println("message ck-> "+messageUtils.getMessage("RESULT_MSG_SUCCESS"));
+
 
         return mav;
     }

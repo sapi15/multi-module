@@ -27,10 +27,6 @@ public class MemberController {
 //
 //    }
 
-//    @GetMapping(value = "/test.do")
-//    public String Test(){
-//        return "admin ok !!!";
-//    }
 
     @GetMapping(value = "/test.do")
     public UserDto getUserData(UserDto userDto){
