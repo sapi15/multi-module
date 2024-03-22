@@ -4,9 +4,7 @@
 
     <select id="selectUserData" resultType="userDto" parameterType="userDto">
         SELECT
-            MEM_SEQ
-             , MEM_ID
-             , MEM_AGE
+            MEM_SEQ, MEM_ID, MEM_AUTH, MEM_PWD
         FROM
             tb_member
         where

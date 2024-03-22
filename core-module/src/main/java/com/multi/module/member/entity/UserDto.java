@@ -20,6 +20,13 @@ public class UserDto {
     @Column(name = "MEM_ID")
     private String memId;
 
-    @Column(name = "MEM_AGE")
-    private String memAge;
+    @Column(name = "MEM_AUTH")
+    private String memAuth;
+
+    @Column(name = "MEM_PWD")
+    private String memPwd;
+
+
+
+
 }

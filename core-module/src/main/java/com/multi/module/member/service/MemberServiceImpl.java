@@ -12,7 +12,7 @@ public class MemberServiceImpl implements MemberService{
     public static final String BEAN_NAME = "memberService";
 
     @Resource
-    UserDao userDao;
+    private UserDao userDao;
 
 
 //    @Override

@@ -6,6 +6,7 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -28,31 +29,33 @@ public class SecurityConfig {
 //        httpSecurity.formLogin((auth) -> auth.disable());
 
         //http basic 인증 방식 disable
-//        httpSecurity.httpBasic((auth) -> auth.disable());
+        httpSecurity.httpBasic((auth) -> auth.disable());
 
-//        httpSecurity.cors((auth) -> auth.disable());
+        httpSecurity.cors((auth) -> auth.disable());
 
 //        httpSecurity.headers((headerConfig) -> headerConfig
-//                                .frameOptions((frameOptionsConfig) -> frameOptionsConfig.disable()));
+//                .frameOptions((frameOptionsConfig) -> frameOptionsConfig.disable()));
 
         httpSecurity
                 .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/admin/login/**").permitAll()
+                        .requestMatchers("/", "/favicon.ico").permitAll()
+//                        .requestMatchers("/admin/login/**").permitAll()
 //                                            .requestMatchers("/", "/login.do", "/loginProc").permitAll()
-//                                            .requestMatchers("/user/**").hasAnyRole("USER")
-//                                            .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-//                                            .requestMatchers("/manager/**").hasAnyRole("MANAGER")
+                                            .requestMatchers("/user/**").hasAnyRole("USER")
+                                            .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                                            .requestMatchers("/manager/**").hasAnyRole("MANAGER")
                                             .anyRequest().authenticated());
 
-        httpSecurity
-                .formLogin((auth) -> auth
-                                    .loginPage("/admin/login/page.do")
-                                    .usernameParameter("username")
-                                    .passwordParameter("password")
-                                    .defaultSuccessUrl("/", true)
-                                    .loginProcessingUrl("/admin/loginProc.do").permitAll()
-                );
+//        httpSecurity.sessionManagement((session)->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+//        httpSecurity
+//                .formLogin((auth) -> auth
+//                                    .loginPage("/admin/login/page.do")
+//                                    .usernameParameter("username")
+//                                    .passwordParameter("password")
+//                                    .defaultSuccessUrl("/", true)
+//                                    .loginProcessingUrl("/admin/loginProc.do").permitAll()
+//                );
 
 
 
