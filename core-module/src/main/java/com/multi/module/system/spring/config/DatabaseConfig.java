@@ -25,7 +25,8 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.multi.module.member.repository"
                             , "com.multi.module.history.repository"
                             , "com.multi.module.board.repository"
-                            , "com.multi.module.attachFile.repository"}, sqlSessionFactoryRef = "sqlSessionFactory1")
+                            , "com.multi.module.attachFile.repository"
+                            , "com.multi.module.config.security.dao"}, sqlSessionFactoryRef = "sqlSessionFactory1")
 public class DatabaseConfig {
 
 //    private final ApplicationContext applicationContext;

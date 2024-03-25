@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.module.config.security.dao.JoinDao">
+
+    <select id="existsByUsername" resultType="boolean" parameterType="com.multi.module.config.security.dto.JoinDto">
+        select if(count(*) = 1, 1, 0)
+        from tb_member
+        where mem_id = #{username, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertUser" parameterType="com.multi.module.member.entity.UserDto">
+        <selectKey keyProperty="memSeq" resultType="int" order="BEFORE">
+            SELECT
+                (CASE COUNT(1) WHEN 0 THEN 0 ELSE MAX(MEM_SEQ) END) + 1
+            FROM
+                tb_member
+        </selectKey>
+
+        INSERT INTO tb_member(MEM_SEQ
+                             , MEM_ID
+                             , MEM_AUTH
+                             , MEM_PWD
+        )VALUES(#{memSeq,jdbcType=INTEGER}
+               , #{memId,jdbcType=VARCHAR}
+               , #{memAuth,jdbcType=VARCHAR}
+               , #{memPwd,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <select id="findByUsername" parameterType="string" resultType="com.multi.module.member.entity.UserDto">
+        SELECT MEM_SEQ, MEM_ID, MEM_AUTH, MEM_PWD
+        FROM tb_member
+        where MEM_ID = #{username,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

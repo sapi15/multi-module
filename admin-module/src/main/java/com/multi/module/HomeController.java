@@ -4,10 +4,8 @@ import com.multi.module.system.spring.utils.MessageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
@@ -17,8 +15,8 @@ public class HomeController {
 //    @Autowired
 //    private MessageSourceAccessor messageSourceAccessor;
 
-    @Autowired
-    MessageUtils messageUtils;
+//    @Autowired
+//    MessageUtils messageUtils;
 
 
     public HomeController(){

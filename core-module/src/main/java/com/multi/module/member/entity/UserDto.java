@@ -2,16 +2,23 @@ package com.multi.module.member.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
+@Getter
+@Setter
 //@AllArgsConstructor
-@Builder
+//@Builder
 @Table(name = "tb_member")
 public class UserDto {
+
+//    public UserDto(){}
+
 
     @Id
     @Column(name = "MEM_SEQ")

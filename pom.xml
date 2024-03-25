@@ -7,11 +7,12 @@
         <module>core-module</module>
         <module>client-module</module>
         <module>admin-module</module>
+        <module>security-module</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.9</version>
+        <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.multi.module</groupId>
