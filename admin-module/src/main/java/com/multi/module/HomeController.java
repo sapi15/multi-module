@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Locale;
+
 @Slf4j
 @RestController
 public class HomeController {
@@ -15,8 +17,8 @@ public class HomeController {
 //    @Autowired
 //    private MessageSourceAccessor messageSourceAccessor;
 
-//    @Autowired
-//    MessageUtils messageUtils;
+    @Autowired
+    MessageUtils messageUtils;
 
 
     public HomeController(){
@@ -29,6 +31,8 @@ public class HomeController {
         json.put("data1", "1");
         json.put("data2", "2");
         json.put("data3", "3");
+        json.put("Locale", Locale.getDefault());
+//        json.put("message ck", messageUtils.getMessage("RESULT_MSG_SUCCESS"));
 
         return json.toString();
     }

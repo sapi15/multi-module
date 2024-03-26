@@ -3,6 +3,7 @@ package com.multi.module.config;
 import com.multi.module.config.security.jwt.JWTFilter;
 import com.multi.module.config.security.jwt.JWTUtil;
 import com.multi.module.config.security.jwt.LoginFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -15,9 +16,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     //AuthenticationManager가 인자로 받을 AuthenticationConfiguraion 객체 생성자 주입
@@ -26,11 +29,11 @@ public class SecurityConfig {
     //JWTUtil 주입
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
-
-        this.authenticationConfiguration = authenticationConfiguration;
-        this.jwtUtil = jwtUtil;
-    }
+//    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
+//
+//        this.authenticationConfiguration = authenticationConfiguration;
+//        this.jwtUtil = jwtUtil;
+//    }
 
     //AuthenticationManager Bean 등록
     @Bean
@@ -63,13 +66,14 @@ public class SecurityConfig {
 
         httpSecurity
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/favicon.ico", "/login", "/join").permitAll()
-//                        .requestMatchers("/admin/login/**").permitAll()
-//                                            .requestMatchers("/", "/login.do", "/loginProc").permitAll()
-                                            .requestMatchers("/user/**").hasAnyRole("USER")
-                                            .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                                            .requestMatchers("/manager/**").hasAnyRole("MANAGER")
-                                            .anyRequest().authenticated());
+                        .requestMatchers(new AntPathRequestMatcher("/"),
+                                         new AntPathRequestMatcher("/favicon.ico"),
+                                         new AntPathRequestMatcher("/login"),
+                                         new AntPathRequestMatcher("/join")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/user/**")).hasAnyRole("USER")
+                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/manager/**")).hasAnyRole("MANAGER")
+                        .anyRequest().authenticated());
 
         // JWT를 사용하기 때문에 세션을 사용하지 않음
         httpSecurity.sessionManagement((session)->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
