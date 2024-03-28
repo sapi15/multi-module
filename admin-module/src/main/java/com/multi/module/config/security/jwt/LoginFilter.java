@@ -11,7 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -32,7 +34,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
-        setFilterProcessesUrl("/login");
+        setFilterProcessesUrl("/login.do");
     }
 
     @Override
@@ -45,11 +47,17 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         System.out.println("username-> "+username);
         System.out.println("password-> "+password);
 
-        //스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
+        UsernamePasswordAuthenticationToken authToken = null;
+        try{
+            //스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
+            authToken = new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
+            System.out.println("authToken -> " + authToken);
+        }catch (Exception e){
+            System.out.println("e->"+e.getMessage());
+            throw new RuntimeException(e);
+        }
 
-        System.out.println("authToken -> " + authToken);
-
+        // TODO: 여기서 에러나는 듯..
         //token에 담은 검증을 위한 AuthenticationManager로 전달
         return authenticationManager.authenticate(authToken);
     }
@@ -78,6 +86,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     //로그인 실패시 실행하는 메소드
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
+
+        System.out.println("401 !!!");
 
         //로그인 실패시 401 응답 코드 반환
         response.setStatus(401);

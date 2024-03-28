@@ -37,7 +37,7 @@ public class JoinServiceImpl implements JoinService{
         }
 
         UserDto userDto = new UserDto();
-        userDto.setMemId(username);
+        userDto.setMemNm(username);
         userDto.setMemPwd(bCryptPasswordEncoder.encode(password));
         userDto.setMemAuth("ROLE_ADMIN");
 

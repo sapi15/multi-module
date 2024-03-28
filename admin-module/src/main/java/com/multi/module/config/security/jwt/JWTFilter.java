@@ -68,7 +68,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         //userEntity를 생성하여 값 set
         UserDto userDto = new UserDto();
-        userDto.setMemId(username);
+        userDto.setMemNm(username);
         userDto.setMemPwd("temppassword");             // 가짜 비밀번호 set, 초기화 목적.
         userDto.setMemAuth(role);
 
