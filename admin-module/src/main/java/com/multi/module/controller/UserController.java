@@ -4,9 +4,10 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 @RequestMapping(value = "/user")
 public class UserController {
 
@@ -18,7 +19,7 @@ public class UserController {
 //        return mav;
 //    }
 
-    @GetMapping("/")
+    @GetMapping
     public String adminH() throws Exception{
         JSONObject json = new JSONObject();
         json.put("user data1","1");

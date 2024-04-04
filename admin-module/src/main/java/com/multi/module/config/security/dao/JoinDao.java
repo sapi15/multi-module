@@ -1,18 +1,17 @@
 package com.multi.module.config.security.dao;
 
-import com.multi.module.member.entity.UserDto;
+import com.multi.module.config.security.dto.JoinDto;
 import org.springframework.stereotype.Repository;
 
-//@Repository(value = JoinDao.BEAN_NAME)
 @Repository
 public interface JoinDao {
-    String BEAN_NAME = "joinDao";
 
-    boolean existsByUsername(String username);
+    int saveMember(JoinDto joinDto);
 
-    int insertUser(UserDto userDto);
+    boolean existsByUsername(String id);
 
-    UserDto findByUsername(String username);
+    JoinDto findByUsername(String id);
+
 
 
 }

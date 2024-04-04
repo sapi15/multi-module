@@ -10,37 +10,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class JoinServiceImpl implements JoinService{
 
-//    @Resource(name = JoinDao.BEAN_NAME)
     @Resource
     private JoinDao joinDao;
 
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    private final JoinDao joinDao;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-//
-//    public JoinServiceImpl(JoinDao joinDao, BCryptPasswordEncoder bCryptPasswordEncoder){
-//        this.joinDao = joinDao;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
 
     @Override
     public int joinProcess(JoinDto joinDto) {
 
-        String username = joinDto.getUsername();
-        String password = joinDto.getPassword();
+        String id = joinDto.getMemNm();
+        String password = joinDto.getMemPwd();
 
-        Boolean isExist = joinDao.existsByUsername(username);
+        Boolean isExist = joinDao.existsByUsername(id);
         if(isExist){
             return 0;
         }
 
-        UserDto userDto = new UserDto();
-        userDto.setMemNm(username);
-        userDto.setMemPwd(bCryptPasswordEncoder.encode(password));
-        userDto.setMemAuth("ROLE_ADMIN");
+        joinDto.setMemPwd(bCryptPasswordEncoder.encode(password));
+        joinDto.setMemAuth("ADMIN");
 
-        return joinDao.insertUser(userDto);
+        return joinDao.saveMember(joinDto);
     }
 }

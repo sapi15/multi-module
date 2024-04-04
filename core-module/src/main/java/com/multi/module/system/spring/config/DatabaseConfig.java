@@ -26,7 +26,8 @@ import javax.sql.DataSource;
                             , "com.multi.module.history.repository"
                             , "com.multi.module.board.repository"
                             , "com.multi.module.attachFile.repository"
-                            , "com.multi.module.config.security.dao"}, sqlSessionFactoryRef = "sqlSessionFactory1")
+                            , "com.multi.module.config.security.dao"
+                            , "com.multi.module.config.security.redis.dao"}, sqlSessionFactoryRef = "sqlSessionFactory1")
 public class DatabaseConfig {
 
 //    private final ApplicationContext applicationContext;

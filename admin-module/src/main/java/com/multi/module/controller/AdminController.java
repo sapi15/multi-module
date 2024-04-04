@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/admin")
 public class AdminController {
 
-    @GetMapping("/")
+    @GetMapping
     public String adminH() throws Exception{
         JSONObject json = new JSONObject();
         json.put("admin data1","1");

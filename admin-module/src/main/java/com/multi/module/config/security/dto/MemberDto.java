@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JoinDto {
+public class MemberDto {
 
     private Integer memSeq;
 
@@ -16,4 +16,6 @@ public class JoinDto {
     private String memPwd;
 
     private String memEmail;
+
+
 }

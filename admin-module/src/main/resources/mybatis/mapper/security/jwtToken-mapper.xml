@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.module.config.security.redis.dao.RefreshTokenDao">
+
+    <select id="findByAccessToken" parameterType="java.lang.String" resultType="com.multi.module.config.security.redis.dto.RefreshToken">
+        SELECT
+            MEM_NM
+             , REFRESH_TOKEN
+             , ACCESS_TOKEN
+        FROM
+            TB_JWT_TOKEN
+        WHERE
+            ACCESS_TOKEN = #{accessToken}
+    </select>
+
+    <insert id="saveRefreshToken" parameterType="com.multi.module.config.security.redis.dto.RefreshToken">
+        INSERT INTO tb_jwt_token(MEM_NM
+                                , REFRESH_TOKEN
+                                , ACCESS_TOKEN
+        )VALUES(
+                    #{memNm,jdbcType=VARCHAR}
+                  , #{refreshToken,jdbcType=VARCHAR}
+                  , #{accessToken,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="deleteRefreshToken" parameterType="com.multi.module.config.security.redis.dto.RefreshToken">
+        DELETE FROM tb_jwt_token
+        WHERE
+            MEM_NM = #{memNm,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

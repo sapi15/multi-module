@@ -1,44 +1,60 @@
 package com.multi.module.config.security.dto;
 
-import com.multi.module.member.entity.UserDto;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
+@Getter
+@RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private final UserDto userDto;
+    private final CustomUserInfoDto customUserInfoDto;
 
-    public CustomUserDetails(UserDto userDto){
-        this.userDto = userDto;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collection = new ArrayList<>();
+        List<String> roles = new ArrayList<>();
+        roles.add("ROLE_"+customUserInfoDto.getMemAuth());
 
-        collection.add(new GrantedAuthority() {
+        System.out.println("roles->"+roles);
 
-            @Override
-            public String getAuthority() {
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
-                return userDto.getMemAuth();
-            }
-        });
-
-        return collection;
+//        Collection<GrantedAuthority> collection = new ArrayList<>();
+//        collection.add(new GrantedAuthority() {
+//            @Override
+//            public String getAuthority() {
+//
+//                String roles = "ROLE_" + customUserInfoDto.getMemAuth();
+//
+//                System.out.println("roles->"+roles);
+//
+//                return roles;
+//            }
+//        });
+//
+//        System.out.println("collection->"+collection);
+//
+//        return collection;
     }
 
     @Override
     public String getPassword() {
-        return userDto.getMemPwd();
+        return customUserInfoDto.getMemPwd();
     }
 
     @Override
     public String getUsername() {
-        return userDto.getMemNm();
+        return customUserInfoDto.getMemNm();
     }
 
     @Override

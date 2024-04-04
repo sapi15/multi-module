@@ -1,34 +1,37 @@
 package com.multi.module.config.security.service;
 
-import com.multi.module.config.security.dao.JoinDao;
+import com.multi.module.config.security.dao.MemberDao;
 import com.multi.module.config.security.dto.CustomUserDetails;
-import com.multi.module.member.entity.UserDto;
+import com.multi.module.config.security.dto.CustomUserInfoDto;
+import com.multi.module.config.security.dto.MemberDto;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final JoinDao joinDao;
+    private final MemberDao memberDao;
+    private final ModelMapper modelMapper;
 
-    public CustomUserDetailsService(JoinDao joinDao) {
-
-        this.joinDao = joinDao;
-    }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //DB에서 조회
-        UserDto userData = joinDao.findByUsername(username);
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        MemberDto memberDto = memberDao.findById(id);
 
-        if (userData != null) {
-
-            //UserDetails에 담아서 return하면 AutneticationManager가 검증 함
-            return new CustomUserDetails(userData);
+        if(memberDto == null){
+            log.info("해당하는 유저가 없습니다.");
+            throw new UsernameNotFoundException("해당하는 유저가 없습니다.");
         }
 
-        return null;
+        CustomUserInfoDto customUserInfoDto = modelMapper.map(memberDto, CustomUserInfoDto.class);
+
+        return new CustomUserDetails(customUserInfoDto);
     }
 }

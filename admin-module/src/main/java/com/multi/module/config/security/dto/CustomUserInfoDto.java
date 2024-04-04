@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JoinDto {
+public class CustomUserInfoDto {
 
     private Integer memSeq;
 

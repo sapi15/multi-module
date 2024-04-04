@@ -24,6 +24,8 @@ public class UserDto {
 
     private String memPwd;
 
+    private String memEmail;
+
 //    @Id
 //    @Column(name = "MEM_SEQ")
 //    private Integer memSeq;

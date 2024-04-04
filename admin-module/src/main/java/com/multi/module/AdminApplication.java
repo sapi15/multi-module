@@ -3,12 +3,12 @@ package com.multi.module;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Log4j2
 //@EnableAutoConfiguration
 @SpringBootApplication(scanBasePackages = "com.multi.module")
-@EnableTransactionManagement
+//@EnableTransactionManagement
+//@EnableBatchProcessing                                      ///SimpleBatchConfiguration을 스프링 빈으로 등록
 //@ComponentScan(basePackages = {"com.multi.module"})
 //@MapperScan(basePackages = {"com.multi.module"})
 public class AdminApplication {

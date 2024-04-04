@@ -123,6 +123,27 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-core</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sts</artifactId>
+            <version>1.10.76</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-cloudtrail</artifactId>
+            <version>1.10.76</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-batch</artifactId>-->
+<!--        </dependency>-->
+
     </dependencies>
 
 </project>
